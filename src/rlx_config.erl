@@ -19,6 +19,7 @@ to_state(Config, State) ->
     %% setup warnings_as_errors before loading the rest so we can error on
     %% any warning during the load
     State1 = rlx_state:warnings_as_errors(State, proplists:get_bool(warnings_as_errors, Config)),
+    ?log_debug("Config: ~p", [Config]),
     lists:foldl(fun load/2, {ok, State1}, Config).
 
 -spec load(term(), {ok, rlx_state:t()} | relx:error()) -> {ok, rlx_state:t()} | relx:error().
