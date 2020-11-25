@@ -64,6 +64,7 @@ format_error({tar_generation_error, Module, Errors}) ->
 
 %% list of options to pass to `systools:make_tar'
 make_tar_opts(ExtraFiles, Release, OutputDir, State) ->
+    ?log_debug("extrafiles: ~p release: ~p outputdir: ~p state: ~p", [ExtraFiles, Release, OutputDir, State]),
     [{path, [filename:join([OutputDir, "lib", "*", "ebin"])]},
      {dirs, app_dirs(State)},
      silent,
@@ -79,6 +80,7 @@ maybe_include_erts(_ExtraFiles, Release, OutputDir, State) ->
          true ->
              ErtsVersion = rlx_release:erts(Release),
              ErtsDir = filename:join([OutputDir, "erts-" ++ ErtsVersion]),
+             ?log_debug("erts_dir: ~p", [ErtsDir]),
              case filelib:is_dir(ErtsDir) of
                  true ->
                      %% systools:make_tar looks for directory erts-vsn in
@@ -88,6 +90,7 @@ maybe_include_erts(_ExtraFiles, Release, OutputDir, State) ->
                      [{erts, code:root_dir()}]
              end;
          false ->
+             ?log_debug("false"),
              [];
          ErtsDir ->
              [{erts, ErtsDir}]
