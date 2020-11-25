@@ -64,7 +64,6 @@ format_error({tar_generation_error, Module, Errors}) ->
 
 %% list of options to pass to `systools:make_tar'
 make_tar_opts(ExtraFiles, Release, OutputDir, State) ->
-    ?log_debug("extrafiles: ~p release: ~p outputdir: ~p state: ~p", [ExtraFiles, Release, OutputDir, State]),
     [{path, [filename:join([OutputDir, "lib", "*", "ebin"])]},
      {dirs, app_dirs(State)},
      silent,
