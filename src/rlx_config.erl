@@ -118,6 +118,7 @@ load({exref, ExRef}, {ok, State}) ->
 load({check_for_undefined_functions, CheckForUndefinedFunctions}, {ok, State}) ->
     {ok, rlx_state:check_for_undefined_functions(State, CheckForUndefinedFunctions)};
 load({include_erts, IncludeErts}, {ok, State}) ->
+    ?log_debug("IncludeErts: ~p", [IncludeErts]),
     {ok, rlx_state:include_erts(State, IncludeErts)};
 load({system_libs, SystemLibs}, {ok, State}) when is_boolean(SystemLibs) ->
     {ok, rlx_state:system_libs(State, SystemLibs)};
